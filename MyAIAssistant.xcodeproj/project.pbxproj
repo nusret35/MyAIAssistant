@@ -14,6 +14,7 @@
 		8090975E289292050041C3B1 /* MessageTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8090975D289292050041C3B1 /* MessageTextField.swift */; };
 		809097602892985D0041C3B1 /* UserMessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8090975F2892985D0041C3B1 /* UserMessageBubble.swift */; };
 		8090976328929AE90041C3B1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8090976228929AE90041C3B1 /* Message.swift */; };
+		80F4C6AF2893094C00130C11 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4C6AE2893094C00130C11 /* Response.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		8090975D289292050041C3B1 /* MessageTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextField.swift; sourceTree = "<group>"; };
 		8090975F2892985D0041C3B1 /* UserMessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBubble.swift; sourceTree = "<group>"; };
 		8090976228929AE90041C3B1 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		80F4C6AE2893094C00130C11 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		80422E7D289199E1008F214C /* MyAIAssistant */ = {
 			isa = PBXGroup;
 			children = (
+				80F4C6AD2893092B00130C11 /* AI */,
 				80422E7E289199E1008F214C /* MyAIAssistantApp.swift */,
 				80422E80289199E1008F214C /* ContentView.swift */,
 				8090976128929AD60041C3B1 /* Models */,
@@ -90,6 +93,14 @@
 				8090976228929AE90041C3B1 /* Message.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		80F4C6AD2893092B00130C11 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				80F4C6AE2893094C00130C11 /* Response.swift */,
+			);
+			path = AI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +177,7 @@
 				80422E81289199E1008F214C /* ContentView.swift in Sources */,
 				8090976328929AE90041C3B1 /* Message.swift in Sources */,
 				80422E7F289199E1008F214C /* MyAIAssistantApp.swift in Sources */,
+				80F4C6AF2893094C00130C11 /* Response.swift in Sources */,
 				809097602892985D0041C3B1 /* UserMessageBubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

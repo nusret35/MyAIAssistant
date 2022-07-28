@@ -9,13 +9,24 @@ import SwiftUI
 
 struct MessageTextField: View {
     @State var message:String = ""
-    
+    var name:String
+    @Binding var messages:[Message]
     
     var body: some View {
         HStack{
             CustomTextField(placeholder: Text("Enter your request"), text: $message)
             
             Button {
+                if message != "" && message != " "
+                {
+                    messages.append(Message(sender: "User", text: message))
+                    print(messages.count)
+                }
+                let response = getBotRespose(message: message, name: name)
+                DispatchQueue.main.asyncAfter(deadline: .now()+3.0){
+                    messages.append(Message(sender: "AI", text: response))
+                }
+                message = ""
                 
             } label: {
                 Image(systemName: "paperplane.fill")

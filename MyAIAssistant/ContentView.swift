@@ -6,6 +6,11 @@ final class DataModel: ObservableObject {
     @Published var name = ""
 }
 
+class Messages: ObservableObject {
+
+    @Published var messages:[Message] = []
+}
+
 struct ContentView: View {
     @ObservedObject var data = DataModel.shared
     @State var nameIsEmpty = true
@@ -45,29 +50,31 @@ struct ContentView: View {
 struct AIView: View {
     var name:String
     @State var currentMessage = ""
-    var messages:[Message] = []
-   
-
+    @ObservedObject var messages = Messages()
     
-    mutating func sendMessage()
-    {
-        messages.append(Message(sender: "User", text: currentMessage))
+    init(name: String) {
+        self.name = name
+        
+        messages.messages.append(Message(sender: "AI", text: "Hello \(name), how may I help you?"))
     }
+
     var body : some View {
-        NavigationView{
-            VStack{
-                ForEach(messages, id: \.self ) { message in
-                    
-                    if message.sender == "AI" {
-                        AIMessageBubble(message: message.text)
+        VStack{
+            ScrollView{
+                VStack{
+                    ForEach(messages.messages, id: \.self ) { message in
+                        
+                        if message.sender == "AI" {
+                            AIMessageBubble(message: message.text)
+                        }
+                        else {
+                            UserMessageBubble(message: message.text)
+                        }
                     }
-                    else {
-                        UserMessageBubble(message: message.text)
-                    }
+                    Spacer()
                 }
-                Spacer()
-                MessageTextField(message: currentMessage)
             }
+            MessageTextField(message: currentMessage,name:name, messages: $messages.messages)
         }
     }
 }
