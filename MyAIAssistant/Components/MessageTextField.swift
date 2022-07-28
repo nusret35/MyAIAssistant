@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct MessageTextField: View {
-    @State private var message = ""
+    @State var message:String = ""
+    
     
     var body: some View {
         HStack{
             CustomTextField(placeholder: Text("Enter your request"), text: $message)
             
             Button {
-                print("duck")
+                AIView.messages.append(Message(sender: "User", text: message))
             } label: {
                 Image(systemName: "paperplane.fill")
                     .foregroundColor(.white)
@@ -50,9 +51,10 @@ struct CustomTextField: View {
         }
     }
 }
-
+/*
 struct MessageTextField_Previews: PreviewProvider {
     static var previews: some View {
-        MessageTextField()
+        MessageTextField(sendAction: {})
     }
 }
+*/

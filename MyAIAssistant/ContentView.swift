@@ -6,8 +6,6 @@ final class DataModel: ObservableObject {
     @Published var name = ""
 }
 
-
-
 struct ContentView: View {
     @ObservedObject var data = DataModel.shared
     @State var nameIsEmpty = true
@@ -19,7 +17,7 @@ struct ContentView: View {
             VStack{
                 TextField("Please enter your name", text: $data.name)
                     .padding()
-                NavigationLink(destination: AIView(name: data.name), tag: 1, selection: $selection) {
+                NavigationLink(destination: AIView(name:data.name), tag: 1, selection: $selection) {
                     Button("Let's get started", action: {
                         if data.name.isEmpty {
                             opacity = 1
@@ -45,14 +43,33 @@ struct ContentView: View {
 
 
 struct AIView: View {
-    let name: String
-    @State var currentRequest = ""
+    var name:String
+    @State var currentMessage = ""
+    var messages:[Message] = []
+   
+    init(){
+        self.messages.append(Message(sender:"AI",text:"Hello \(name), how can I help you today?"))
+    }
+    
+    mutating func sendMessage()
+    {
+        messages.append(Message(sender: "User", text: currentMessage))
+    }
     var body : some View {
-        VStack{
-            AIMessageBubble(message: "Hello \(name), how can I help you today?")
-            UserMessageBubble(message:"Hey, how you doin")
-            Spacer()
-            MessageTextField()
+        NavigationView{
+            VStack{
+                ForEach(messages, id: \.self ) { message in
+                    
+                    if message.sender == "AI" {
+                        AIMessageBubble(message: message.text)
+                    }
+                    else {
+                        UserMessageBubble(message: message.text)
+                    }
+                }
+                Spacer()
+                MessageTextField(message: currentMessage, sendAction: sendMessage())
+            }
         }
     }
 }

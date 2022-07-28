@@ -11,13 +11,18 @@ struct UserMessageBubble: View {
     var message:String
     var body: some View {
         
-            HStack{
+        VStack{
+        HStack{
                 Text(message)
                     .padding()
                     .background(Color("BabyBlue"))
                     .cornerRadius(30)
             }
             .frame(maxWidth: 300, alignment: .trailing)
+            .padding(.horizontal)
+
+        }.frame(maxWidth:.infinity, alignment: .trailing)
+            
    
         }
 }
@@ -25,14 +30,19 @@ struct UserMessageBubble: View {
 struct AIMessageBubble: View {
     var message:String
     var body: some View {
-        HStack{
-            Text(message)
-                .padding()
-                .background(Color("Gray"))
-                .tint(Color.black)
-                .cornerRadius(30)
-        }
-        .frame(maxWidth: 300, alignment: .leading)
+        VStack{
+            HStack{
+                Text(message)
+                    .padding()
+                    .background(Color("Gray"))
+                    .tint(Color.black)
+                    .cornerRadius(30)
+            }
+            .frame(maxWidth: 300, alignment: .leading)
+            .padding(.horizontal)
+            
+        }.frame(maxWidth:.infinity, alignment: .leading)
+        
     }
 }
 
@@ -41,6 +51,9 @@ struct AIMessageBubble: View {
 
 struct MessageBubble_Previews: PreviewProvider {
     static var previews: some View {
-        UserMessageBubble(message: "1231")
+        VStack{
+        UserMessageBubble(message: "123176575675675")
+        AIMessageBubble(message: "dgdlşkgdlfkgdlşfgkdlfgd")
+        }
     }
 }
