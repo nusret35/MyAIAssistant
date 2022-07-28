@@ -47,9 +47,7 @@ struct AIView: View {
     @State var currentMessage = ""
     var messages:[Message] = []
    
-    init(){
-        self.messages.append(Message(sender:"AI",text:"Hello \(name), how can I help you today?"))
-    }
+
     
     mutating func sendMessage()
     {
@@ -68,7 +66,7 @@ struct AIView: View {
                     }
                 }
                 Spacer()
-                MessageTextField(message: currentMessage, sendAction: sendMessage())
+                MessageTextField(message: currentMessage)
             }
         }
     }

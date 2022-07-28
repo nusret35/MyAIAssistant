@@ -16,7 +16,7 @@ struct MessageTextField: View {
             CustomTextField(placeholder: Text("Enter your request"), text: $message)
             
             Button {
-                AIView.messages.append(Message(sender: "User", text: message))
+                
             } label: {
                 Image(systemName: "paperplane.fill")
                     .foregroundColor(.white)

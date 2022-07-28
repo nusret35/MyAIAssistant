@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Message: Identifiable, Codable {
-    var id: String
+struct Message: Hashable {
+    var sender: String
     var text: String
 }
