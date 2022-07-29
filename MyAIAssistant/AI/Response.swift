@@ -10,8 +10,8 @@ import SwiftUI
 
 @MainActor
 func getBotRespose(message:String, name:String) async -> String {
-    var weatherManager = WeatherManager()
-    @State var weather: MainResponse?
+    let weatherManager = WeatherManager()
+    @State var weather: ResponseBody?
     
     let tempMessage = message.lowercased()
     
@@ -49,20 +49,17 @@ func getBotRespose(message:String, name:String) async -> String {
         }
         else{
             print(LocationManager.shared.location)
-            if let weather = weather {
-                return "Weather is \(weather.temp) degrees today"
-            }
-            else {
-                do {
-                    if let location = LocationManager.shared.location {
-                        weather = try await weatherManager.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
-                        return "Weather is \(weather!.temp) degrees today"
-                    }
-                    else {return "I am having trouble getting your location"}
-                } catch {
-                    return "I am having trouble getting weather data"
+            do {
+                if let location = LocationManager.shared.location {
+                    let weather = try await weatherManager.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                    return "Weather is \(weather.main.temp) degrees today"
                 }
+                else {return "I am having trouble getting your location"}
+            } catch {
+                print(error)
+                return "I am having trouble getting weather data"
             }
+            
         }
     }
     
