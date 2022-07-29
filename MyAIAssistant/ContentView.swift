@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocationUI
 
 final class DataModel: ObservableObject {
     static let shared = DataModel()
@@ -16,6 +17,7 @@ struct ContentView: View {
     @State var nameIsEmpty = true
     @State var opacity:Double = 0
     @State var selection: Int? = nil
+    
     
     var body: some View {
         NavigationView {
@@ -50,7 +52,10 @@ struct ContentView: View {
 struct AIView: View {
     var name:String
     @State var currentMessage = ""
+    
     @ObservedObject var messages = Messages()
+    @ObservedObject var locationManager = LocationManager.shared
+    
     
     init(name: String) {
         self.name = name

@@ -17,17 +17,18 @@ struct MessageTextField: View {
             CustomTextField(placeholder: Text("Enter your request"), text: $message)
             
             Button {
+                Task{
                 if message != "" && message != " "
                 {
                     messages.append(Message(sender: "User", text: message))
                     print(messages.count)
                 }
-                let response = getBotRespose(message: message, name: name)
+                let response = await getBotRespose(message: message, name: name)
                 DispatchQueue.main.asyncAfter(deadline: .now()+3.0){
                     messages.append(Message(sender: "AI", text: response))
                 }
                 message = ""
-                
+                }
             } label: {
                 Image(systemName: "paperplane.fill")
                     .foregroundColor(.white)
