@@ -82,7 +82,20 @@ func getBotRespose(message:String, name:String) async -> String {
         }
         
     }
-    
+    else if tempMessage.contains("what ") && tempMessage.contains("means"){
+        let word = tempMessage.slice(from: "what ", to: " means")
+        do {
+            let meaning = try await dictionaryManager.getDefinition(word: word)
+            if (meaning != "No definition")
+            {
+                return "\(word?.capitalized ?? "") means '\(meaning)'"
+            }
+            return "I could not find a definition for \(word ?? " the word that your are looking for")."
+        } catch {
+            print(error)
+            return "I am having trouble getting the definition of the word \(String(describing: word))"
+        }
+    }
     return "I don't have an answer for that \(name)."
 }
 
