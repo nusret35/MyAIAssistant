@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 func getBotRespose(message:String, name:String) async -> String {
     let weatherManager = WeatherManager()
-    @State var weather: ResponseBody?
+    let dictionaryManager = DictionaryManager()
     
     let tempMessage = message.lowercased()
     
@@ -67,7 +67,35 @@ func getBotRespose(message:String, name:String) async -> String {
         return "Soon, I will be able to answer your question"
     }
     
+    else if tempMessage.contains("what does") && tempMessage.contains("mean") {
+        let word = tempMessage.slice(from: "does ", to: " mean")
+        do {
+            let meaning = try await dictionaryManager.getDefinition(word: word)
+            if (meaning != "No definition")
+            {
+                return "\(word?.capitalized ?? "") means '\(meaning)'"
+            }
+            return "I could not find a definition for \(word ?? " the word that your are looking for")."
+        } catch {
+            print(error)
+            return "I am having trouble getting the definition of the word \(String(describing: word))"
+        }
+        
+    }
+    
     return "I don't have an answer for that \(name)."
 }
+
+extension String {
+    
+    func slice(from: String, to: String) -> String? {
+        return (range(of: from)?.upperBound).flatMap { substringFrom in
+            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
+                String(self[substringFrom..<substringTo])
+            }
+        }
+    }
+}
+
 
 
