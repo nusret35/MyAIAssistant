@@ -63,6 +63,10 @@ func getBotRespose(message:String, name:String) async -> String {
         }
     }
     
+    else if tempMessage.contains("what is"){
+        return "Soon, I will be able to answer your question"
+    }
+    
     return "I don't have an answer for that \(name)."
 }
 
