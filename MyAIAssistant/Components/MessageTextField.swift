@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct MessageTextField: View {
     @State var message:String = ""
@@ -20,12 +21,17 @@ struct MessageTextField: View {
                 Task{
                 if message != "" && message != " "
                 {
-                    messages.append(Message(sender: "User", text: message))
+                    messages.append(Message(id: messages.count, sender: "User", text: message))
                     print(messages.count)
                 }
                 let response = await getBotRespose(message: message, name: name)
+                let utterance = AVSpeechUtterance(string: response)
+                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                utterance.rate = 0.4
+                let synthesizer = AVSpeechSynthesizer()
                 DispatchQueue.main.asyncAfter(deadline: .now()+3.0){
-                    messages.append(Message(sender: "AI", text: response))
+                    messages.append(Message(id:messages.count, sender: "AI", text: response))
+                    synthesizer.speak(utterance)
                 }
                 message = ""
                 }

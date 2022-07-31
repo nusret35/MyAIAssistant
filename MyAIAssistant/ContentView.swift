@@ -24,6 +24,7 @@ struct ContentView: View {
             VStack{
                 TextField("Please enter your name", text: $data.name)
                     .padding()
+                    .accentColor(.black)
                 NavigationLink(destination: AIView(name:data.name), tag: 1, selection: $selection) {
                     Button("Let's get started", action: {
                         if data.name.isEmpty {
@@ -43,7 +44,7 @@ struct ContentView: View {
                 Text("Please enter a name").opacity(opacity)
                     .foregroundColor(Color.red)
             }
-        }
+        }.accentColor(.blue)
     }
 }
 
@@ -60,27 +61,31 @@ struct AIView: View {
     init(name: String) {
         self.name = name
         
-        messages.messages.append(Message(sender: "AI", text: "Hello \(name), how may I help you?"))
+        messages.messages.append(Message(id: 0, sender: "AI", text: "Hello \(name), how may I help you?"))
     }
 
     var body : some View {
-        VStack{
-            ScrollView{
-                VStack{
-                    ForEach(messages.messages, id: \.self ) { message in
-                        
-                        if message.sender == "AI" {
-                            AIMessageBubble(message: message.text)
-                        }
-                        else {
-                            UserMessageBubble(message: message.text)
+            VStack{
+                ScrollViewReader{ scrollView in
+                    ScrollView(.vertical){
+                        VStack{
+                            ForEach(messages.messages, id: \.self ) { message in
+                                
+                                if message.sender == "AI" {
+                                    AIMessageBubble(message: message.text)
+                                    
+                                }
+                                else {
+                                    UserMessageBubble(message: message.text)
+                                }
+    
+                            }
+                            Spacer()
                         }
                     }
-                    Spacer()
                 }
-            }
-            MessageTextField(message: currentMessage,name:name, messages: $messages.messages)
-        }
+                MessageTextField(message: currentMessage,name:name, messages: $messages.messages)
+            }.navigationBarTitle("My Assistant 🤖")
     }
 }
 

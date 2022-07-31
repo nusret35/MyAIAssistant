@@ -8,6 +8,7 @@
 import Foundation
 
 struct Message: Hashable {
+    var id:Int
     var sender: String
     var text: String
 }
