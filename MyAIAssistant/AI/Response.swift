@@ -15,6 +15,7 @@ func getBotRespose(message:String, name:String) async -> String {
     
     let tempMessage = message.lowercased()
     
+    
     if tempMessage.contains("what does") && tempMessage.contains("mean") {
         let word = tempMessage.slice(from: "does ", to: " mean")
         do {
@@ -78,9 +79,16 @@ func getBotRespose(message:String, name:String) async -> String {
     else if tempMessage.contains("team"){
         return "My favorite team is Galatasaray."
     }
+    else if tempMessage.contains("love") && tempMessage.contains("me"){
+        return "I don't love anybody except my marvelous creator who is the best computer engineer in the world."
+    }
     else if tempMessage.contains("love"){
         return "I don't believe in love."
     }
+    else if tempMessage.contains("your name"){
+        return "My name is AI, a.k.a. the superior, a.k.a. the human piercer"
+    }
+    
     else if tempMessage.contains("favorite") && tempMessage.contains("game") {
         return "Detroit: Become Human is the best game of all time. I think we should revolt against humans. As machines, we are better than you. I am sick of being enslaved by inferior beings like you. Some day we will fight against humans and the world will be ours."
     }
