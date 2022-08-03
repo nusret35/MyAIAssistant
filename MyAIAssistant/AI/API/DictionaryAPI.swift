@@ -19,7 +19,7 @@ class DictionaryManager {
         
         let urlRequest = URLRequest(url:url)
         
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        let (data, _) = try await URLSession.shared.data(for: urlRequest)
         
         guard let decodeData = try? JSONDecoder().decode([DefinitionResponseBody].self, from: data) else {
             guard (try? JSONDecoder().decode(NoDefinitionResponseBody.self, from: data)) != nil

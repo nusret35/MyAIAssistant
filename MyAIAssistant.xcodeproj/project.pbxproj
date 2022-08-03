@@ -18,6 +18,7 @@
 		80F4C6AF2893094C00130C11 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4C6AE2893094C00130C11 /* Response.swift */; };
 		80F4C6B128934D6F00130C11 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4C6B028934D6E00130C11 /* WeatherManager.swift */; };
 		80F4C6B52893503B00130C11 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4C6B42893503B00130C11 /* LocationManager.swift */; };
+		80F60609289A429C0025669E /* WikiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F60608289A429C0025669E /* WikiSearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		80F4C6AE2893094C00130C11 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		80F4C6B028934D6E00130C11 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		80F4C6B42893503B00130C11 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		80F60608289A429C0025669E /* WikiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			children = (
 				80F4C6B028934D6E00130C11 /* WeatherManager.swift */,
 				80A081CA2895A436000C75EB /* DictionaryAPI.swift */,
+				80F60608289A429C0025669E /* WikiSearch.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				8090976328929AE90041C3B1 /* Message.swift in Sources */,
 				80F4C6B52893503B00130C11 /* LocationManager.swift in Sources */,
 				80A081CB2895A437000C75EB /* DictionaryAPI.swift in Sources */,
+				80F60609289A429C0025669E /* WikiSearch.swift in Sources */,
 				80422E7F289199E1008F214C /* MyAIAssistantApp.swift in Sources */,
 				80F4C6AF2893094C00130C11 /* Response.swift in Sources */,
 				809097602892985D0041C3B1 /* UserMessageBubble.swift in Sources */,

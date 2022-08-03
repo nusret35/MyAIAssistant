@@ -12,8 +12,9 @@ import SwiftUI
 func getBotRespose(message:String, name:String) async -> String {
     let weatherManager = WeatherManager()
     let dictionaryManager = DictionaryManager()
+    let wikiManager = WikiManager()
     
-    let tempMessage = message.lowercased()
+    var tempMessage = message.lowercased()
     
     
     if tempMessage.contains("what does") && tempMessage.contains("mean") {
@@ -134,10 +135,32 @@ func getBotRespose(message:String, name:String) async -> String {
             
         }
     }
+    else if tempMessage.contains("who is") || tempMessage.contains("what is") {
+        if tempMessage.contains("?") {
+            tempMessage.removeLast()
+        }
+        guard let index = tempMessage.lastIndex(of: " ") else {
+            return "What do you mean?"
+        }
+        
+        let nextIndex = tempMessage.index(after: index)
     
-    else if tempMessage.contains("what is"){
-        return "Soon, I will be able to answer your question"
+        
+        let subString = tempMessage[nextIndex...]
+        
+        do{
+            let info = try await wikiManager.getInfo(thing: String(subString))
+            if info != "No result" {
+                
+            }
+            else {return "There is no result for \(subString)"}
+        } catch{
+            print(error)
+            return "I am having to trouble to find the search result of \(subString)"
+        }
+        
     }
+    
     
     return "I don't have an answer for that \(name)."
 }
