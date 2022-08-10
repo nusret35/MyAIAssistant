@@ -46,6 +46,49 @@ func getBotRespose(message:String, name:String) async -> String {
             return "I am having trouble getting the definition of the word \(String(describing: word))"
         }
     }
+    else if tempMessage.contains("what is") {
+        if tempMessage.contains("?") {
+            tempMessage.removeLast()
+        }
+        let index = tempMessage.firstIndex(of: "s")
+        
+        var nextIndex = tempMessage.index(after: index!)
+        
+        nextIndex = tempMessage.index(after: nextIndex)
+        
+        let subString = tempMessage[nextIndex...]
+        
+        do {
+            var meaning = try await dictionaryManager.getDefinition(word: String(subString))
+            if (meaning != "No definition")
+            {
+                let index = String.Index(encodedOffset: 0)
+                let first_letter = meaning[index].lowercased()
+                meaning.remove(at: index)
+                meaning = first_letter + meaning
+                
+                return "\(String(subString).capitalized) is \(meaning)"
+            }
+            do{
+                var info = try await wikiManager.getInfo(thing: subString)
+                if info != "No result" {
+                    if info.contains(".") {
+                        let index = info.firstIndex(of: ".")
+                        info = String(info[...index!])
+                    }
+                    return info
+                }
+                else {return "There is no result for \(subString)"}
+            } catch{
+                print(error)
+                return "I am having to trouble to find the search result of \(subString)"
+            }
+        } catch {
+            print(error)
+            return "I am having trouble getting the search result of \(String(subString))"
+        }
+        
+    }
     else if tempMessage.contains("what") && tempMessage.contains("my name") {
         return "Your name is \(name)."
     }
@@ -135,23 +178,26 @@ func getBotRespose(message:String, name:String) async -> String {
             
         }
     }
-    else if tempMessage.contains("who is") || tempMessage.contains("what is") {
+    else if tempMessage.contains("who is"){
         if tempMessage.contains("?") {
             tempMessage.removeLast()
         }
-        guard let index = tempMessage.lastIndex(of: " ") else {
-            return "What do you mean?"
-        }
+        let index = tempMessage.firstIndex(of: "s")
         
-        let nextIndex = tempMessage.index(after: index)
-    
+        var nextIndex = tempMessage.index(after: index!)
+        
+        nextIndex = tempMessage.index(after: nextIndex)
         
         let subString = tempMessage[nextIndex...]
         
         
         do{
-            let info = try await wikiManager.getInfo(thing: subString)
+            var info = try await wikiManager.getInfo(thing: subString)
             if info != "No result" {
+                if info.contains(".") {
+                    let index = info.firstIndex(of: ".")
+                    info = String(info[...index!])
+                }
                 return info
             }
             else {return "There is no result for \(subString)"}
