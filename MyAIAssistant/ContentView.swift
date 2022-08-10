@@ -66,24 +66,24 @@ struct AIView: View {
 
     var body : some View {
             VStack{
-                ScrollViewReader{ scrollView in
-                    ScrollView(.vertical){
-                        VStack{
-                            ForEach(messages.messages, id: \.self ) { message in
-                                
-                                if message.sender == "AI" {
-                                    AIMessageBubble(message: message.text)
+                ScrollView {
+                    ScrollViewReader{ scrollView in
+                                ForEach(messages.messages) { message in
                                     
+                                    if message.sender == "AI" {
+                                        AIMessageBubble(message: message.text)
+                                        
+                                    }
+                                    else {
+                                        UserMessageBubble(message: message.text)
+                                    }
+        
+                                } .onChange(of: messages.messages.count) { _ in
+                                    scrollView.scrollTo(messages.messages.count - 1)
                                 }
-                                else {
-                                    UserMessageBubble(message: message.text)
-                                }
-    
-                            }
-                            Spacer()
                         }
+                
                     }
-                }
                 MessageTextField(message: currentMessage,name:name, messages: $messages.messages)
             }.navigationBarTitle("My Assistant 🤖")
     }
