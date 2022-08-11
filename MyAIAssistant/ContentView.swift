@@ -1,5 +1,7 @@
 import SwiftUI
 import CoreLocationUI
+import AVFoundation
+
 
 final class DataModel: ObservableObject {
     static let shared = DataModel()
@@ -17,6 +19,7 @@ struct ContentView: View {
     @State var nameIsEmpty = true
     @State var opacity:Double = 0
     @State var selection: Int? = nil
+    let synthesizer = AVSpeechSynthesizer()
     
     
     var body: some View {
@@ -25,7 +28,7 @@ struct ContentView: View {
                 TextField("Please enter your name", text: $data.name)
                     .padding()
                     .accentColor(.black)
-                NavigationLink(destination: AIView(name:data.name), tag: 1, selection: $selection) {
+                NavigationLink(destination: AIView(name:data.name,synthesizer:synthesizer), tag: 1, selection: $selection) {
                     Button("Let's get started", action: {
                         if data.name.isEmpty {
                             opacity = 1
@@ -56,11 +59,12 @@ struct AIView: View {
     
     @ObservedObject var messages = Messages()
     @ObservedObject var locationManager = LocationManager.shared
+    let synthesizer:AVSpeechSynthesizer
     
     
-    init(name: String) {
+    init(name: String, synthesizer:AVSpeechSynthesizer) {
         self.name = name
-        
+        self.synthesizer = synthesizer
         messages.messages.append(Message(id: 0, sender: "AI", text: "Hello \(name), how may I help you?"))
     }
 
@@ -84,7 +88,7 @@ struct AIView: View {
                         }
                 
                     }
-                MessageTextField(message: currentMessage,name:name, messages: $messages.messages)
+                MessageTextField(message: currentMessage,name:name, messages: $messages.messages,synthesizer:synthesizer )
             }.navigationBarTitle("My Assistant 🤖")
     }
 }

@@ -12,6 +12,7 @@ struct MessageTextField: View {
     @State var message:String = ""
     var name:String
     @Binding var messages:[Message]
+    let synthesizer:AVSpeechSynthesizer
     
     var body: some View {
         HStack{
@@ -28,7 +29,9 @@ struct MessageTextField: View {
                 let utterance = AVSpeechUtterance(string: response)
                 utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                 utterance.rate = 0.4
-                let synthesizer = AVSpeechSynthesizer()
+                if (synthesizer.isSpeaking){
+                        synthesizer.stopSpeaking(at: .immediate)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now()+3.0){
                     messages.append(Message(id:messages.count, sender: "AI", text: response))
                     synthesizer.speak(utterance)

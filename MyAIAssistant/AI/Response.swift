@@ -195,7 +195,9 @@ func getBotRespose(message:String, name:String) async -> String {
             var info = try await wikiManager.getInfo(thing: subString)
             if info != "No result" {
                 if info.contains(".") {
-                    let index = info.firstIndex(of: ".")
+                    var index = info.firstIndex(of: ".")
+                    index = info.index(after: index!)
+                    index = info[index!...].firstIndex(of: ".")
                     info = String(info[...index!])
                 }
                 return info
