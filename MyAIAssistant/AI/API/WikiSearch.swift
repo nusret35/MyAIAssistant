@@ -10,7 +10,9 @@ import Foundation
 class WikiManager {
     
     func getInfo(thing:String.SubSequence) async throws -> String {
-        let urlThing = thing.replacingOccurrences(of: " ", with: "%20")
+        var urlThing = thing.replacingOccurrences(of: " ", with: "%20")
+        urlThing = urlThing.urlSearchFormat()
+        print(urlThing)
         let urlString = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=\(urlThing)&utf8=&format=json"
         guard let url = URL(string: urlString) else {
             fatalError("Missing URL")
@@ -43,8 +45,12 @@ class WikiManager {
         
         if var attributedString = try? NSAttributedString(data: htmlData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil){
             var finalString = attributedString.string
-            finalString.removeFirst()
-            return finalString.attributedStringConversionFix()
+            if finalString.first == "\n"{
+                finalString.removeFirst()
+            }
+            finalString = finalString.attributedStringConversionFix()
+            print(finalString)
+            return finalString
         }
             
         return "I have problems"
@@ -87,78 +93,4 @@ struct WikiTitleSearchResponseBody:Decodable {
 }
 
 
-extension String {
-    public func urlSearchFormat() -> String {
-        var text = self
-        text = text.replaceAll(of: "ü", with: "%FC")
-        text = text.replaceAll(of: "Ü", with: "%DC")
-        text = text.replaceAll(of: "ı", with: "%C4%B1")
-        text = text.replaceAll(of: "İ", with: "%C4%B0")
-        text = text.replaceAll(of: "ö", with: "%F6")
-        text = text.replaceAll(of: "Ö", with: "%D6")
-        text = text.replaceAll(of: "ş", with: "%C5%9F")
-        text = text.replaceAll(of: "Ş", with: "%C5%9E")
-        text = text.replaceAll(of: "ç", with: "%E7")
-        text = text.replaceAll(of: "Ç", with: "%C7")
-        text = text.replaceAll(of: "ğ", with: "%C4%9F")
-        text = text.replaceAll(of: "Ğ", with: "%C4%9E")
-        return text
-    }
-    
-    public func attributedStringConversionFix() -> String {
-        var text = self
-        text = text.replaceAll(of: "Ã¼", with: "ü")
-        text = text.replaceAll(of: "Ã¢", with: "â")
-        return text
-    }
-}
-
-/*
-extension String {
-    
-    public func htmlToText() -> String {
-        var text = self
-        text = text.replaceAll(of: "<p class=\"mw-empty-elt\">\n\n\n\n</p>\n<p><b>", with: "")
-        text = text.replaceAll(of: "<b>", with: "")
-        text = text.replaceAll(of: "</b>", with: "")
-        text = text.replaceAll(of: "<i>", with: "")
-        text = text.replaceAll(of: "</i>", with: "")
-        return text
-    }
-}
-*/
-/*
-struct PageResponse:Encodable,Decodable {
-    
-    let dic: [String:String]
-    
-    struct Key:CodingKey, Equatable {
-        static func ==(lhs: Key, rhs: Key) -> Bool {
-            return lhs.stringValue == rhs.stringValue
-        }
-        var stringValue: String
-        init(_ string:[String:String]){ self.stringValue = string}
-        init?(stringValue: String) { self.init(stringValue) }
-        var intValue: Int? {return nil}
-        init?(intValue: Int) {return nil}
-        
-        init(from decoder:Decoder) throws {
-            let container = try decoder.container(keyedBy: Key.self)
-            
-            var optionalKey = container.allKeys[0]
-            if let stringValue = try? container.decode(String.self, forKey: optionalKey){
-                optionalKey.stringValue = stringValue
-        } else{
-                print("was not able to decode the extract")
-            }
-        }
-    }
-}
-    
-struct ExtractResponse:Encodable,Decodable{
-
-    var extract:String
-}
-
-*/
 
