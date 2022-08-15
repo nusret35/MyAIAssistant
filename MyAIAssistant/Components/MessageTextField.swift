@@ -16,7 +16,7 @@ struct MessageTextField: View {
     
     var body: some View {
         HStack{
-            CustomTextField(placeholder: Text("Enter your request"), text: $message)
+            CustomTextField(placeholder: Text("Say anything..."), text: $message)
             
             Button {
                 Task{
@@ -26,6 +26,7 @@ struct MessageTextField: View {
                     print(messages.count)
                 }
                 let response = await getBotRespose(message: message, name: name)
+                message = ""
                 let utterance = AVSpeechUtterance(string: response)
                 utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                 utterance.rate = 0.4
@@ -36,7 +37,6 @@ struct MessageTextField: View {
                     messages.append(Message(id:messages.count, sender: "AI", text: response))
                     synthesizer.speak(utterance)
                 }
-                message = ""
                 }
             } label: {
                 Image(systemName: "paperplane.fill")

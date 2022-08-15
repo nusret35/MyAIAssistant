@@ -2,8 +2,13 @@
   "colors" : [
     {
       "color" : {
-        "platform" : "osx",
-        "reference" : "selectedControlColor"
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "0.228",
+          "green" : "0.219",
+          "red" : "0.220"
+        }
       },
       "idiom" : "universal"
     },
@@ -18,9 +23,9 @@
         "color-space" : "srgb",
         "components" : {
           "alpha" : "1.000",
-          "blue" : "0.999",
-          "green" : "0.845",
-          "red" : "0.701"
+          "blue" : "0.228",
+          "green" : "0.219",
+          "red" : "0.220"
         }
       },
       "idiom" : "universal"

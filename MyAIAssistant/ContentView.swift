@@ -73,7 +73,6 @@ struct AIView: View {
                 ScrollView {
                     ScrollViewReader{ scrollView in
                                 ForEach(messages.messages) { message in
-                                    
                                     if message.sender == "AI" {
                                         AIMessageBubble(message: message.text)
                                         

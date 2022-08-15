@@ -30,6 +30,7 @@ class WikiManager {
         print(title)
         let pageid = decodeData.query.search[0].pageid
         let titleURLString = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=&titles=\(title)&format=json"
+        title = title.replaceAll(of: "_", with: " ")
         guard let titleURL = URL(string: titleURLString) else {
             fatalError("Missing title URL")
         }
@@ -49,6 +50,10 @@ class WikiManager {
                 finalString.removeFirst()
             }
             finalString = finalString.attributedStringConversionFix()
+            if (finalString.contains(" is ")){
+                finalString = finalString.sliceTilEnd(from: " is ")!
+                finalString = "\(title)\(finalString)"
+            }
             print(finalString)
             return finalString
         }

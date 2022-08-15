@@ -28,7 +28,7 @@ func getBotRespose(message:String, name:String) async -> String {
             return "I could not find a definition for \(word ?? " the word that your are looking for")."
         } catch {
             print(error)
-            return "I am having trouble getting the definition of the word \(String(describing: word))"
+            return "I am having trouble getting the definition of the word \(word ?? "")"
         }
         
     }
@@ -43,7 +43,7 @@ func getBotRespose(message:String, name:String) async -> String {
             return "I could not find a definition for \(word ?? " the word that your are looking for")."
         } catch {
             print(error)
-            return "I am having trouble getting the definition of the word \(String(describing: word))"
+            return "I am having trouble getting the definition of the word \(word ?? "")"
         }
     }
     else if tempMessage.contains("what") && tempMessage.contains("my name") {
@@ -177,31 +177,5 @@ func getBotRespose(message:String, name:String) async -> String {
     
     return "I don't have an answer for that \(name)."
 }
-
-extension String {
-    
-    func slice(from: String, to: String) -> String? {
-        return (range(of: from)?.upperBound).flatMap { substringFrom in
-            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
-                String(self[substringFrom..<substringTo])
-            }
-        }
-    }
-    
-    public func replaceAll(of pattern:String,
-                           with replacement:String,
-                           options: NSRegularExpression.Options = []) -> String{
-      do{
-        let regex = try NSRegularExpression(pattern: pattern, options: [])
-        let range = NSRange(0..<self.utf16.count)
-        return regex.stringByReplacingMatches(in: self, options: [],
-                                              range: range, withTemplate: replacement)
-      }catch{
-        NSLog("replaceAll error: \(error)")
-        return self
-      }
-    }
-}
-
 
 

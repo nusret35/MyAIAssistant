@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80240B1D28AA58BA00DD5BE8 /* TypingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80240B1C28AA58BA00DD5BE8 /* TypingIndicator.swift */; };
 		80422E7F289199E1008F214C /* MyAIAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80422E7E289199E1008F214C /* MyAIAssistantApp.swift */; };
 		80422E81289199E1008F214C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80422E80289199E1008F214C /* ContentView.swift */; };
 		80422E83289199E8008F214C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80422E82289199E8008F214C /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		80240B1C28AA58BA00DD5BE8 /* TypingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
 		80422E7B289199E1008F214C /* MyAIAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAIAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80422E7E289199E1008F214C /* MyAIAssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAIAssistantApp.swift; sourceTree = "<group>"; };
 		80422E80289199E1008F214C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				8090975D289292050041C3B1 /* MessageTextField.swift */,
 				8090975F2892985D0041C3B1 /* UserMessageBubble.swift */,
+				80240B1C28AA58BA00DD5BE8 /* TypingIndicator.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80240B1D28AA58BA00DD5BE8 /* TypingIndicator.swift in Sources */,
 				8090975E289292050041C3B1 /* MessageTextField.swift in Sources */,
 				80F4C6B128934D6F00130C11 /* WeatherManager.swift in Sources */,
 				80422E81289199E1008F214C /* ContentView.swift in Sources */,
