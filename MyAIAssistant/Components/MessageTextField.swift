@@ -25,6 +25,9 @@ struct MessageTextField: View {
                     messages.append(Message(id: messages.count, sender: "User", text: message))
                     print(messages.count)
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+                    messages.append(Message(id:messages.count, sender: "Pending", text: ""))
+                }
                 let response = await getBotRespose(message: message, name: name)
                 message = ""
                 let utterance = AVSpeechUtterance(string: response)
@@ -34,6 +37,7 @@ struct MessageTextField: View {
                         synthesizer.stopSpeaking(at: .immediate)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now()+3.0){
+                    messages.popLast()
                     messages.append(Message(id:messages.count, sender: "AI", text: response))
                     synthesizer.speak(utterance)
                 }

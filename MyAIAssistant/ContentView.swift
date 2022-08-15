@@ -77,6 +77,9 @@ struct AIView: View {
                                         AIMessageBubble(message: message.text)
                                         
                                     }
+                                    else if message.sender == "Pending" {
+                                        TypingIndicator()
+                                    }
                                     else {
                                         UserMessageBubble(message: message.text)
                                     }
