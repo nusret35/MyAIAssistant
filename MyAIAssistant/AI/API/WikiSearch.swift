@@ -25,7 +25,13 @@ class WikiManager {
         guard let decodeData = try? JSONDecoder().decode(WikiSearchResponseBody.self, from: data) else {
             return "No result"
         }
-        var title = decodeData.query.search[0].title.replaceAll(of: " ", with: "_")
+        if decodeData.query.search.isEmpty {
+            return "No result"
+        }
+        guard var title = decodeData.query.search[0].title else {
+            return "No result"
+        }
+        title = title.replaceAll(of: " ", with: "_")
         title = title.urlSearchFormat()
         print(title)
         let pageid = decodeData.query.search[0].pageid
@@ -74,7 +80,7 @@ struct WikiSearchResponseBody:Decodable {
     }
     
     struct SearchResponse:Decodable {
-        var title:String
+        var title:String?
         var snippet:String
         var pageid:Int
         

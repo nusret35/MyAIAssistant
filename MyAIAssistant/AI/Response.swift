@@ -117,6 +117,8 @@ func getBotRespose(message:String, name:String) async -> String {
             await MusicController.shared.requestAuthorization()
             return "Requesting for permission"
         }
+        await MusicController.shared.playMusic(songName: "Hello")
+        
     }
     else if tempMessage.contains("weather") || tempMessage.contains("temperature"){
         if LocationManager.shared.permissionAccepted == false {

@@ -40,4 +40,18 @@ class MusicController: ObservableObject {
         }
     }
     
+    func playMusic(songName:String) async{
+        let searchRequest = MusicCatalogSearchRequest(term: songName, types: [Song.self])
+        guard let response = try? await searchRequest.response() else {
+            print("No response from catalogue")
+            return
+        }
+        print("catalogue found \(response.songs.count) songs")
+    
+    }
+    
+    func playMusic(songName:String, artistName:String){
+        
+    }
+    
 }

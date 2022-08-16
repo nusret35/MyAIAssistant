@@ -30,7 +30,7 @@ struct ContentView: View {
                     .accentColor(.black)
                 NavigationLink(destination: AIView(name:data.name,synthesizer:synthesizer), tag: 1, selection: $selection) {
                     Button("Let's get started", action: {
-                        if data.name.isEmpty {
+                        if data.name.isEmpty || data.name == " " || data.name == "  "{
                             opacity = 1
                         }
                         else {
