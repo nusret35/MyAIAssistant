@@ -59,6 +59,7 @@ struct AIView: View {
     
     @ObservedObject var messages = Messages()
     @ObservedObject var locationManager = LocationManager.shared
+    @ObservedObject var musicController = MusicController.shared
     let synthesizer:AVSpeechSynthesizer
     
     

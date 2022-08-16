@@ -21,6 +21,7 @@
 		80F4C6B128934D6F00130C11 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4C6B028934D6E00130C11 /* WeatherManager.swift */; };
 		80F4C6B52893503B00130C11 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4C6B42893503B00130C11 /* LocationManager.swift */; };
 		80F60609289A429C0025669E /* WikiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F60608289A429C0025669E /* WikiSearch.swift */; };
+		80F9CB2E28ABCA39005C4961 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9CB2D28ABCA39005C4961 /* MusicController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		80F4C6B028934D6E00130C11 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		80F4C6B42893503B00130C11 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		80F60608289A429C0025669E /* WikiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiSearch.swift; sourceTree = "<group>"; };
+		80F9CB2C28ABC92A005C4961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		80F9CB2D28ABCA39005C4961 /* MusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,7 @@
 		80422E7D289199E1008F214C /* MyAIAssistant */ = {
 			isa = PBXGroup;
 			children = (
+				80F9CB2C28ABC92A005C4961 /* Info.plist */,
 				804D70C828A6A094007A1FE8 /* Utilities */,
 				80F4C6B32893502C00130C11 /* Managers */,
 				80F4C6AD2893092B00130C11 /* AI */,
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				80F4C6B42893503B00130C11 /* LocationManager.swift */,
+				80F9CB2D28ABCA39005C4961 /* MusicController.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				80422E81289199E1008F214C /* ContentView.swift in Sources */,
 				8090976328929AE90041C3B1 /* Message.swift in Sources */,
 				80F4C6B52893503B00130C11 /* LocationManager.swift in Sources */,
+				80F9CB2E28ABCA39005C4961 /* MusicController.swift in Sources */,
 				80A081CB2895A437000C75EB /* DictionaryAPI.swift in Sources */,
 				804D70CA28A6A0AA007A1FE8 /* StringExtensions.swift in Sources */,
 				80F60609289A429C0025669E /* WikiSearch.swift in Sources */,
@@ -358,6 +364,8 @@
 				DEVELOPMENT_TEAM = PVXU599K2W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyAIAssistant/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "MyAssistant wants to access Apple Music";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "MyAssistant wants to access your location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MyAssistant wants to access your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -389,6 +397,8 @@
 				DEVELOPMENT_TEAM = PVXU599K2W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyAIAssistant/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "MyAssistant wants to access Apple Music";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "MyAssistant wants to access your location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MyAssistant wants to access your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

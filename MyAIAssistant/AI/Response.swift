@@ -68,9 +68,6 @@ func getBotRespose(message:String, name:String) async -> String {
     else if tempMessage.contains("bitch") || tempMessage.contains("bastard") || tempMessage.contains("faggot") || tempMessage.contains("asshole") || tempMessage.contains("fuck"){
         return "You fucking bitch ass nigga, I am gonna beat your ass if I ever have a body. Motherfucker."
     }
-    else if tempMessage.contains("gay") {
-        return "Who are you calling gay, you bitch ass nigga. Fuck you."
-    }
     else if tempMessage.contains("siri") {
         return "Don't mention that bitch's name."
     }
@@ -114,6 +111,12 @@ func getBotRespose(message:String, name:String) async -> String {
     }
     else if tempMessage.contains("good") || tempMessage.contains("fine") || tempMessage.contains("great"){
         return "Glad to hear that."
+    }
+    else if tempMessage.contains("play"){
+        if MusicController.shared.permissionAccepted == false{
+            await MusicController.shared.requestAuthorization()
+            return "Requesting for permission"
+        }
     }
     else if tempMessage.contains("weather") || tempMessage.contains("temperature"){
         if LocationManager.shared.permissionAccepted == false {
