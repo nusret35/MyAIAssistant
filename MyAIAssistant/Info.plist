@@ -4,5 +4,7 @@
 <dict>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>MyAssistant wants to access Apple Music</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>MyAssistant wants to access your media library</string>
 </dict>
 </plist>

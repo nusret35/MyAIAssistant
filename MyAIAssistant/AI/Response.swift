@@ -117,7 +117,10 @@ func getBotRespose(message:String, name:String) async -> String {
             await MusicController.shared.requestAuthorization()
             return "Requesting for permission"
         }
-        await MusicController.shared.playMusic(songName: "Hello")
+        var songName = tempMessage.sliceTilEnd(from: " ")!
+        songName = String(songName.dropFirst())
+        let response = await MusicController.shared.playMusic(songName: songName)
+        return response
         
     }
     else if tempMessage.contains("weather") || tempMessage.contains("temperature"){

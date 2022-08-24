@@ -10,6 +10,7 @@ import Foundation
 extension String {
     public func urlSearchFormat() -> String {
         var text = self
+        text = text.replaceAll(of: " ", with: "%20")
         text = text.replaceAll(of: "ü", with: "%C3%BC")
         text = text.replaceAll(of: "Ü", with: "%C3%9C")
         text = text.replaceAll(of: "ı", with: "%C4%B1")
@@ -82,6 +83,10 @@ extension String {
         NSLog("replaceAll error: \(error)")
         return self
       }
+    }
+    
+    func capitalizingFirstLetter() -> String {
+      return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
     
 }
