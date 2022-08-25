@@ -8,15 +8,17 @@
 import Foundation
 import MusicKit
 
-struct SongResponse:Decodable {
-    let data: [Song]
-}
+
 
 struct CatalogResponseBody:Decodable {
     let results: CatalogResponse
     
     struct CatalogResponse:Decodable {
         let songs:SongResponse
+    }
+    
+    struct SongResponse:Decodable {
+        let data: [Song]
     }
 }
 

@@ -21,16 +21,14 @@ struct MessageTextField: View {
             Button {
                 Task{
                     if message.isEmpty != true {
-                        if message != "" && message != " "
-                        {
-                            messages.append(Message(id: messages.count, sender: "User", text: message))
-                            print(messages.count)
-                        }
+                        let text = message
+                        message = ""
+                        messages.append(Message(id: messages.count, sender: "User", text: text))
+                        print(messages.count)
                         DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
                             messages.append(Message(id:messages.count, sender: "Pending", text: ""))
                         }
-                        let response = await getBotRespose(message: message, name: name)
-                        message = ""
+                        let response = await getBotRespose(message: text, name: name)
                         let utterance = AVSpeechUtterance(string: response)
                         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                         utterance.rate = 0.4
@@ -55,7 +53,7 @@ struct MessageTextField: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 10)
-        .background(Color("BabyBlue"))
+        .background(Color("Gray"))
         .cornerRadius(50)
         .padding()
     }

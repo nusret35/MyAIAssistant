@@ -2,7 +2,6 @@ import SwiftUI
 import CoreLocationUI
 import AVFoundation
 
-
 final class DataModel: ObservableObject {
     static let shared = DataModel()
 
@@ -16,38 +15,47 @@ class Messages: ObservableObject {
 
 struct ContentView: View {
     @ObservedObject var data = DataModel.shared
+    @ObservedObject var networkManager = NetworkManager()
     @State var nameIsEmpty = true
     @State var opacity:Double = 0
     @State var selection: Int? = nil
     let synthesizer = AVSpeechSynthesizer()
     
+
     
     var body: some View {
-        NavigationView {
-            VStack{
-                TextField("Please enter your name", text: $data.name)
-                    .padding()
-                    .accentColor(.black)
-                NavigationLink(destination: AIView(name:data.name,synthesizer:synthesizer), tag: 1, selection: $selection) {
-                    Button("Let's get started", action: {
-                        if data.name.isEmpty || data.name == " " || data.name == "  "{
-                            opacity = 1
+        if networkManager.isConnected == true
+        {
+            NavigationView {
+                VStack{
+                    TextField("Please enter your name", text: $data.name)
+                        .padding()
+                        .accentColor(.black)
+                    NavigationLink(destination: AIView(name:data.name,synthesizer:synthesizer), tag: 1, selection: $selection) {
+                        Button("Let's get started", action: {
+                            if data.name.isEmpty || data.name == " " || data.name == "  "{
+                                opacity = 1
+                            }
+                            else {
+                                opacity = 0
+                                selection = 1
+                            }
                         }
-                        else {
-                            opacity = 0
-                            selection = 1
-                        }
-                    }
-                )
-                    .padding()
-                    .background(Color.blue)
-                    .clipShape(Capsule())
-                    .foregroundColor(Color.white)
-            }
-                Text("Please enter a name").opacity(opacity)
-                    .foregroundColor(Color.red)
-            }
-        }.accentColor(.blue)
+                    )
+                        .padding()
+                        .background(Color.blue)
+                        .clipShape(Capsule())
+                        .foregroundColor(Color.white)
+                }
+
+                    Text("Please enter a name").opacity(opacity)
+                        .foregroundColor(Color.red)
+                }
+            }.accentColor(.blue)
+        }
+        else{
+            NoConnectionView()
+        }
     }
 }
 
@@ -60,6 +68,7 @@ struct AIView: View {
     @ObservedObject var messages = Messages()
     @ObservedObject var locationManager = LocationManager.shared
     @ObservedObject var musicController = MusicController.shared
+    @FocusState private var textFieldIsFocused: Bool
     let synthesizer:AVSpeechSynthesizer
     
     
@@ -71,6 +80,7 @@ struct AIView: View {
 
     var body : some View {
             VStack{
+                
                 ScrollView {
                     ScrollViewReader{ scrollView in
                                 ForEach(messages.messages) { message in
@@ -91,8 +101,23 @@ struct AIView: View {
                         }
                 
                     }
+                .onTapGesture {
+                    textFieldIsFocused = false
+                }
                 MessageTextField(message: currentMessage,name:name, messages: $messages.messages,synthesizer:synthesizer )
+                    .focused($textFieldIsFocused)
             }.navigationBarTitle("My Assistant 🤖")
+            .onDisappear {
+                if synthesizer.isSpeaking == true {
+                    synthesizer.stopSpeaking(at: .immediate)
+                }
+            }
+    }
+}
+
+struct NoConnectionView: View {
+    var body: some View {
+        Text("No internet connection")
     }
 }
 

@@ -31,12 +31,11 @@ class WikiManager {
         guard var title = decodeData.query.search[0].title else {
             return "No result"
         }
-        title = title.replaceAll(of: " ", with: "_")
-        title = title.urlSearchFormat()
-        print(title)
+        var urlThingTitle = title.replaceAll(of: " ", with: "_")
+        urlThingTitle = urlThingTitle.urlSearchFormat()
+        print(urlThingTitle)
         let pageid = decodeData.query.search[0].pageid
-        let titleURLString = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=&titles=\(title)&format=json"
-        title = title.replaceAll(of: "_", with: " ")
+        let titleURLString = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=&titles=\(urlThingTitle)&format=json"
         guard let titleURL = URL(string: titleURLString) else {
             fatalError("Missing title URL")
         }

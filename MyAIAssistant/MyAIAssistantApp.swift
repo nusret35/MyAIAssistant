@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MyAIAssistantApp: App {
+    let networkManager = NetworkManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
     }
 }
+

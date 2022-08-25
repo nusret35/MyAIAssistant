@@ -10,7 +10,6 @@ import Foundation
 extension String {
     public func urlSearchFormat() -> String {
         var text = self
-        text = text.replaceAll(of: " ", with: "%20")
         text = text.replaceAll(of: "ü", with: "%C3%BC")
         text = text.replaceAll(of: "Ü", with: "%C3%9C")
         text = text.replaceAll(of: "ı", with: "%C4%B1")
@@ -39,6 +38,7 @@ extension String {
         text = text.replaceAll(of: "Ã‡", with: "Ç")
         text = text.replaceAll(of: "Ä°", with: "İ")
         text = text.replaceAll(of: "Â", with: " ")
+        text = text.replaceAll(of: "Ãœ", with: "Ü")
         return text
     }
     
