@@ -57,14 +57,15 @@ class MusicController: ObservableObject {
     }
     
     
-    func playMusic(songName:String) async -> String{
+    func playMusic(songName:String) async -> Song?{
         let subscription = try? await MusicSubscription.current
         musicSubscription = subscription
         let checkCat = try? await MusicSubscription.current.canPlayCatalogContent
         print("can play catalog content: \(checkCat)")
         if checkCat == true {
             let countryCode = try! await MusicDataRequest.currentCountryCode
-            let urlSongName = songName.urlSearchFormat()
+            var urlSongName = songName.urlSearchFormat()
+            urlSongName = urlSongName.replaceAll(of: " ", with: "%20")
             let urlString = "https://api.music.apple.com/v1/catalog/\(countryCode)/search?types=songs&term=\(urlSongName)"
             print(urlString)
             let url = URL(string: urlString)!
@@ -75,11 +76,17 @@ class MusicController: ObservableObject {
             let decoder = JSONDecoder()
             let songsResponse = try? decoder.decode(CatalogResponseBody.self, from: dataResponse!.data)
             print(songsResponse?.results.songs.data[0])
+            /*
             let artistName = songsResponse?.results.songs.data[0].artistName ?? "unknown artist"
             let responseSongName = songsResponse?.results.songs.data[0].title ?? "\(songName.capitalizingFirstLetter())"
             return "Now playing \(responseSongName) by \(artistName)."
+             */
+            return songsResponse?.results.songs.data[0]
         }
+        return nil
+        /*
         return "I cannot play \(songName)"
+         */
         /*
         let searchRequest = MusicCatalogSearchRequest(term: songName, types: [Song.self])
         guard let response = try? await searchRequest.response() else {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import MusicKit
 
 struct MessageTextField: View {
     @State var message:String = ""
@@ -21,6 +22,7 @@ struct MessageTextField: View {
             Button {
                 Task{
                     if message.isEmpty != true {
+                        var speakingIsFinished = false
                         let text = message
                         message = ""
                         messages.append(Message(id: messages.count, sender: "User", text: text))
@@ -28,7 +30,7 @@ struct MessageTextField: View {
                         DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
                             messages.append(Message(id:messages.count, sender: "Pending", text: ""))
                         }
-                        let response = await getBotRespose(message: text, name: name)
+                        let (response,song) = await getBotRespose(message: text, name: name)
                         let utterance = AVSpeechUtterance(string: response)
                         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                         utterance.rate = 0.4
@@ -38,7 +40,14 @@ struct MessageTextField: View {
                         DispatchQueue.main.asyncAfter(deadline: .now()+3.0){
                             messages.popLast()
                             messages.append(Message(id:messages.count, sender: "AI", text: response))
-                            synthesizer.speak(utterance)
+                            if song == nil {
+                                synthesizer.speak(utterance)
+                            }
+                        }
+                        if song != nil {
+                            try? await SystemMusicPlayer.shared.queue.insert(song!, position: .afterCurrentEntry)
+                            try? await SystemMusicPlayer.shared.skipToNextEntry()
+                            try? await SystemMusicPlayer.shared.play()
                         }
                     }
                 }
